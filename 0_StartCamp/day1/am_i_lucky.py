@@ -47,3 +47,12 @@ elif same_number == 3:
         print("5등 입니다.")
 else:
         print("순위권 밖입니다.")
+
+# count = 0
+
+# for my_number in my_lotto_list:
+#         for real_number in lotto_list:
+#                 if my_number == real_number:
+#                         count += 1
+
+# print(count)
