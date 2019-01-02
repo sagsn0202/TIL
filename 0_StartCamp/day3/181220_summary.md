@@ -81,3 +81,44 @@ math_functions
 64
 ```
 
+##  cloud9
+
+sudo ~ : 경고 무시
+
+ctrl + c : cancle
+
+$, >, % : prompt
+
+flask run -h 0.0.0.0 -p 8080
+
+export FLASK_ENV=development => 수정할 때마다 컴파일 과정 생략
+
+```python
+from flask import Flask, jsonify
+from random import sample
+
+# Flask 클래스 초기화 및 app 객체 만들기
+app = Flask(__name__)
+
+# "/"가 있는 것을 인덱스 화면이다.
+@app.route("/")
+def index():
+    return "Happy Hacking"
+    
+@app.route("/hi")
+def hi():
+    return "Hello SSAFY"
+    
+@app.route("/pick_lotto")
+def pick_lotto():
+    return jsonify(sample(range(1, 46), 6))
+    
+@app.route("/get_lotto")
+def get_lotto():
+    data = {
+        "numbers" : [1, 2, 3, 4, 5, 6],
+        "bonus" : 7
+    }
+    return jsonify(data)
+```
+
