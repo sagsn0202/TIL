@@ -34,6 +34,7 @@ a_plus_3 = a + 3
 
 ## Two-dimensional array
 
+* `axis=0` are the values that share an index, `axis=1` are the values that share an array.(axis=0 as the columns and axis=1 as the rows)
 * Two-dimensional array is a list of lists where each list has the same number of elements.
 
 ```python
@@ -86,4 +87,30 @@ array([12, 10,  5, 23,  1])
 >>> a[0,0:3]
 array([32, 15,  6])
 ```
+
+## Logical Operation
+
+```python
+>>> a = np.array([10, 2, 2, 4, 5, 3, 9, 8, 9, 7])
+>>> a > 5
+array([True, False, False, False, False, False, True, True, True, True], dtype=bool)
+```
+
+```python
+>>> a[a > 5]
+array([10, 9, 8, 9, 7])
+```
+
+```python
+>>> a[(a > 5) | (a < 2)]
+array([10, 9, 8, 9, 7])
+```
+
+## Summary
+
+- Arrays are a special type of list that allows us to store values in an organized manner.
+- An array can be created by either defining it directly using `np.array()` or by importing a CSV using `np.genfromtxt('file.csv', delimiter=',')`.
+- An operation (such as addition) can be performed on every element in an array by simply performing it on the array itself.
+- Elements can be selected from arrays using their index and array locations, both of which start at 0.
+- Logical operations can be used to create new, more focused arrays out of larger arrays.
 

@@ -303,7 +303,7 @@ def fibonacci(n):
 
 ```python
 def fibonacci(n):
-  fibs = [0, 1]
+  fibs = [1, 1]
   if n <= len(fibs) - 1:
     return fibs[n]
   else:
@@ -423,6 +423,25 @@ def multiplication(num_1, num_2):
     result += num_1
   return result
 ```
+
+### Tower of Hanoi
+
+#### Recursion
+
+```python
+# 아래에 코드를 작성해주세요.
+def tower_of_hanoi(n, from_pil, to_pil, aux_pil):
+    # base case
+    if n == 1:
+        print(from_pil, "->", to_pil)
+        return
+    #recursion case
+    tower_of_hanoi(n - 1, from_pil, aux_pil, to_pil)
+    print(from_pil, "->", to_pil)
+    tower_of_hanoi(n - 1, aux_pil, to_pil, from_pil)
+```
+
+![tower_of_hanoi](C:\Users\student\TIL\codecademy_image\tower_of_hanoi.png)
 
 ### Binary Trees' Depth
 
