@@ -441,7 +441,7 @@ def tower_of_hanoi(n, from_pil, to_pil, aux_pil):
     tower_of_hanoi(n - 1, aux_pil, to_pil, from_pil)
 ```
 
-![tower_of_hanoi](C:\Users\student\TIL\codecademy_image\tower_of_hanoi.png)
+![tower_of_hanoi](C:\Users\student\TIL\Summary\codecademy\image\tower_of_hanoi.png)
 
 ### Binary Trees' Depth
 

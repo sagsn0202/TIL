@@ -106,6 +106,24 @@ array([10, 9, 8, 9, 7])
 array([10, 9, 8, 9, 7])
 ```
 
+``` python
+recipes = np.genfromtxt('recipes.csv', delimiter=',')
+print(recipes)
+eggs = recipes[:, 2]
+print(eggs)
+one_egg = recipes[(eggs == 1)]
+print(one_egg)
+[[ 2.     0.75   2.     1.     0.5  ]
+ [ 1.     0.125  1.     1.     0.125]
+ [ 2.75   1.5    1.     0.     1.   ]
+ [ 4.     0.5    2.     2.     0.5  ]]
+[ 2.  1.  1.  2.]
+[[ 1.     0.125  1.     1.     0.125]
+ [ 2.75   1.5    1.     0.     1.   ]]
+```
+
+
+
 ## Summary
 
 - Arrays are a special type of list that allows us to store values in an organized manner.
@@ -114,3 +132,11 @@ array([10, 9, 8, 9, 7])
 - Elements can be selected from arrays using their index and array locations, both of which start at 0.
 - Logical operations can be used to create new, more focused arrays out of larger arrays.
 
+## Basic Analysis
+
+- Mean: 평균
+- Median: 중앙값
+- Percentiles: 백분위수
+- Interquartile Range: 사분위수 범위
+- Outliers: 이상치
+- Standard Deviation: 표준편차
