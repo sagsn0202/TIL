@@ -282,3 +282,111 @@ df.rename(columns={
 - You can be specific about which column names are getting changed
 
 If you misspell one of the original column names, it just won't change anything.
+
+## Aggregate
+
+### Column Statistics
+
+`df.column_name.command()`
+
+| Command   | Description                       |
+| --------- | --------------------------------- |
+| `mean`    | Average of all values in column   |
+| `std`     | Standard deviation                |
+| `median`  | Median                            |
+| `max`     | Maximum value in column           |
+| `min`     | Minimum value in column           |
+| `count`   | Number of values in column        |
+| `nunique` | Number of unique values in column |
+| `unique`  | List of unique values in column   |
+
+### Aggregate Functions
+
+#### Groupby
+
+`df.groupby('column1').column2.measurement()`
+
+- `column1` is the column that we want to group by (`'student'` in our example)
+- `column2` is the column that we want to perform a measurement on (`grade` in our example)
+- `measurement` is the measurement function we want to apply (`mean` in our example)
+
+`<class 'pandas.core.series.Series'>`
+
+##### More than One Column
+
+`df.groupby(['Location', 'Day of Week'])['Total Sales'].mean().reset_index()`
+
+#### Reset Index(DataFrame)
+
+`df.groupby('column1').column2.measurement().reset_index()`
+
+* `reset_index()` will transform our Series into a DataFrame and move the indices into their own column
+
+`df = df.rename(columns={"id": "count"})`
+
+`<class 'pandas.core.frame.DataFrame'>`
+
+#### Lambda
+
+the input to our lambda function will always be a list of values
+
+```python
+# np.percentile can calculate any percentile over an array of values
+high_earners = df.groupby('category').wage.apply(lambda x: np.percentile(x, 75)).reset_index()
+```
+
+### Pivot Tables
+
+Reorganizing a table in this way is called **pivoting**. The new table is called a **pivot table**.
+
+```python
+df.pivot(columns='ColumnToPivot',
+         index='ColumnToBeRows',
+         values='ColumnToBeValues')
+```
+
+| Location     | Date       | Day of Week | Total Sales |
+| ------------ | ---------- | ----------- | ----------- |
+| West Village | February 1 | W           | 400         |
+| West Village | February 2 | Th          | 450         |
+| Chelsea      | February 1 | W           | 375         |
+| Chelsea      | February 2 | Th          | 390         |
+
+```python
+# First use the groupby statement:
+unpivoted = df.groupby(['Location', 'Day of Week'])['Total Sales'].mean().reset_index()
+```
+
+| Location     | Day of Week | Total Sales |
+| ------------ | ----------- | ----------- |
+| Chelsea      | M           | 300         |
+| Chelsea      | Tu          | 310         |
+| Chelsea      | W           | 320         |
+| Chelsea      | Th          | 290         |
+| ...          |             |             |
+| West Village | Th          | 400         |
+| West Village | F           | 390         |
+| West Village | Sa          | 250         |
+| ...          |             |             |
+
+```python
+# Now pivot the table
+pivoted = unpivoted.pivot(
+    columns='Day of Week',
+    index='Location',
+    values='Total Sales')
+```
+
+| Location     | M    | Tu   | W    | Th   | F    | Sa   | Su   |
+| ------------ | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
+| Chelsea      | 400  | 390  | 250  | 275  | 300  | 150  | 175  |
+| West Village | 300  | 310  | 350  | 400  | 390  | 250  | 200  |
+| ...          |      |      |      |      |      |      |      |
+
+```python
+pivoted = unpivoted.pivot(
+    columns='Day of Week',
+    index='Location',
+    values='Total Sales').reset_index()
+```
+
