@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            margin: 0;
+        }
+        div {
+            float: left;
+            width: 32%;
+            height: 200px;
+            background-color: indianred;
+            color: white;
+            font-size: 3em;
+            line-height: 200px;
+            text-align: center;
+        }
+
+        div:not(:nth-of-type(3n+1)) {
+            margin-left: 2%;
+        }
+
+        div:not(:nth-of-type(n+4)) {
+            margin-bottom: 2%;
+        }
+
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div>1</div>
+    <div>2</div>
+    <div>3</div>
+    <div>4</div>
+    <div>5</div>
+    <div>6</div>
+</body>
+</html>

@@ -285,3 +285,10 @@ np.mean(a == 4)
 *Remember, because we're using a random number generator, we'll get a slightly different result each time.  With the large* `size` *we chose, the calculated probability should be accurate to about 2 decimal places.*
 
 **So, our basketball player has a roughly 20% chance of making 4 baskets.**
+
+#### Python2
+
+If you do not include below, Python will assume you want integer division (an integer divided by an integer). Naturally, integer division returns an integer.
+
+* float()
+* period

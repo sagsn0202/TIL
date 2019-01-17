@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .visible { visibility: visible; }
+        /* No element Yes space */
+        .hidden { visibility: hidden; }
+        table, td {border: 1px solid black; }
+        .collapse {
+            /* table에서만 사용, 행이나 열을 보이지 않게 한다. */
+            visibility: collapse;
+            /* visibility: hidden; */
+        }
+        div, img {
+            float: left;
+            width: 200px;
+            height: 200px;
+            margin: 30px;
+            background-color: darkblue;
+            color: white;
+            opacity: 0.5;
+            transition: opacity 1s;
+        }
+        div:hover, img:hover {
+            opacity: 1.0;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Visivility Opacity</h1>
+    <h2 class="visible">visibility: visable</h2>
+    <h2 class="hidden">visibility: hidden</h2>
+    <!-- 공간도 사라진다. -->
+    <h2 style="display: none">display: none</h2>
+
+    <table>
+        <tr>
+            <td>A</td>
+            <td>B</td>
+        </tr>
+        <tr class="collapse">
+            <td>A</td>
+            <td>B</td>
+        </tr>
+    </table>
+
+    <div>Opacity: 0.5</div>
+    <img src="https://picsum.photos/200/300/?random" alt="random">
+</body>
+</html>

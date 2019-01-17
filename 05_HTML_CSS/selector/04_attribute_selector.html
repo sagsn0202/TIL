@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        /* element 중에 href 속성(어트리뷰트)를 갖는 모든 요소 */
+        a[href] { color: magenta; }
+        /* element 중에 ... */
+        a[target="_blank"] {color: midnightblue; }
+        /* 속성값에 "first" 문자열이 있다면 */
+        p[title~="first"] { color: olivedrab; }
+        /* "second" 와 바로 이어서 '-'가 오는 것까지 잡음 */
+        p[title|="second"] { color: orange; }
+        /* "second"로 시작하는 */
+        p[title^="second"] { color: rebeccapurple; }
+        /* ".net"으로 끝나는 a */
+        a[href$=".net"] { color: salmon; }
+        /* "first"가 들어가는 모든 a */
+        a[tilte*="first"] { color:  darkslategrey; }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <a href="https://google.com">Google</a>
+    <a href="https://naver.com" target="_blank">Naver</a>
+    <a href="https://facebook.com">Facebook</a>
+    <a href="https://daum.net">Daum</a>
+    <a>???</a>
+    <hr>
+    <p title="first p">I'm P</p>
+    <p title="second-p">I'm PP</p>
+    <p title="p-first">P I am</p>
+    <p title="seconda">PP I am</p>
+</body>
+</html>

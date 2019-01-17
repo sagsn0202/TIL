@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        /* a에 마우스를 올리면, */
+        a:hover { font-weight: bold; }
+        /* input에 포커스가 가면, */
+        input:focus { background-color: blue; }
+    /* Link pseudo selector, User action pseudo selector */
+        /* a 링크를 방문하지 않았을 때 */
+        a:link { color: red; }
+        /* a 링크를 방문했을 때 */
+        a:visited { color: black; }
+        /* a 요소를 클릭하고 있는 상태일 때 */
+        a:active { color: purple; }
+        /* ...에 포커스가 가면, */
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            color: white
+        }
+    /* UI element state pseudo selector */
+        /* input이 사용 가능할 때, input 요소 바로 뒤에 오는 형제 span을 선택 */
+        input:enabled + span {
+            color: teal;
+        }
+        /* input이 사용 불가능할 때, input 요소 바로 뒤에 오는 형제 span을 선택 */
+        input:disabled + span {
+            color: gray;
+            text_decoration: line-through;
+        }
+        /* input이 checked 상태일 때, input 요소 바로 뒤에 오는 형제 span을 선택 */
+        input:checked + span {
+            color: brown;
+        }
+    /* Sturctural pseudo selector */
+        /* p 요소 중에서 첫번째 자식을 선택 */
+        p:first-child { color: cornflowerblue; }
+        /* 마지막 자식이 p일 때 선택 */
+        p:last-child { color: goldenrod; }
+
+        ol > li:nth-child(2n) { color: red; }
+        ol > li:nth-child(2n+1) { color: blue; }
+        ol > li:first-child { color: green; }
+        ol > li:last-child { color: yellow; }
+        ol > li:nth-child(4) { background-color: brown; }
+
+        /* ul의 모든 자식 중에 뒤에서부터 홀수 번째 요소 선택 */
+        ul > :nth-last-child(2n+1) { color: deeppink; }
+        ul > :nth-last-child(2n) { color: deepskyblue; }
+
+        /* 부모 요소의 자식 요소 중 첫번째 등장하는 */
+        p:first-of-type { color: salmon; }
+        p:last-of-type { color: seagreen; }
+        p:nth-of-type(2) { color: slateblue;}
+        p:nth-last-of-type(2) { color: slategrey;}
+        p:first-child {background-color: violet;}
+
+        /* Negation pseudo selector(부정) */
+        input:not([type="password"]) {background-color: black;}
+    </style>
+    <title>Document</title>
+</head>
+<body>
+
+    <p>This Paragraph is first child of parent(Body).</p>
+
+    <h1>Welcome to my HOMEPAGE</h1>
+    <p>This Paragraph is not first child / last child of parent(Body).</p>
+
+    <div>
+        <p>This Paragraph is first child of parent(Div).</p>
+        <p>This Paragraph is last child of parent(Div).</p>
+    </div>
+
+    <div>
+        <h2>This is Heading2</h2>
+        <p>1st</p>
+        <p>2nd</p>
+        <p>3rd</p>
+        <p>4th</p>
+        <div>
+            <h3>This is Heading3</h3>
+            <p>1st</p>
+            <p>2nd</p>
+            <p>3rd</p>
+            <p>4th</p>
+        </div>
+    </div>
+
+    <div>
+        <ol>
+            <li>Espresso</li>
+            <li>Americano</li>
+            <li>Caffe Latte</li>
+            <li>Caffe Mocha</li>
+            <li>Caramel Latte</li>
+            <li>Capuccino</li>
+        </ol>
+    </div>
+
+    <div>
+        <ul>
+            <li>Espresso</li>
+            <li>Americano</li>
+            <li>Caffe Latte</li>
+            <li>Caffe Mocha</li>
+            <li>Caramel Latte</li>
+            <li>Capuccino</li>
+        </ul>
+    </div>
+
+    <a href="#">Hover me</a>
+    <br><br>
+    <input type="text" placeholder="Focus Me">
+
+    <div>
+        <input type="text" value="I'll be red when focused.">
+        <input type="password" value="I'll be red when focused.">
+    </div>
+    <hr>
+    <form action="">
+        <input type="radio" value="메뉴A" checked="checked">
+        <span>순두부</span><br>
+        <input type="radio" value="메뉴B">바베큐<br>
+        <input type="radio" value="굶기" disabled>굶기<br>
+
+        <input type="checkbox" value="taxi" checked="checked">
+        <span>택시</span><br>
+        <input type="checkbox" value="BM">대중교통<br>
+        <input type="checkbox" value="walk" disabled>걷기<br>
+    </form>
+</body>
+</html>

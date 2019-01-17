@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <style>
+    /* 후손-자식 셀렉터 */
+        /* div 요소의 후손(n level) 요소 중 p 요소 전체 */
+        div p { color: red; }
+        /* div 요소의 자신(1 level) 요소 중 p 전체 */
+        div > p { color: blue; }
+    /* siblings 셀렉터 */
+        /* p의 sibling 요소 중에 바로 뒤에 오는 ul 요소 */
+        p + ul { color: lightcoral; }
+        /* div의 sibling 요소 중에 뒤에 오는 p 요소 */
+        div ~ p { color: lightblue; }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Heading</h1>
+    <div>
+        <p>Paragraph 1</p>
+        <p>Paragraph 2</p>
+        <span>
+            <p>Paragraph 3</p>
+        </span>
+    </div>
+    <p>Paragraph 4</p>
+
+    <div>A div element</div>
+    <ul>
+        <li>Coffee</li>
+        <li>Tea</li>
+        <li>Milk</li>
+    </ul>
+
+    <p>First Paragraph</p>
+    <ul>
+        <li>Latte</li>
+        <li>Choco</li>
+        <li>Water</li>
+    </ul>
+
+    <h2>Another List</h2>
+    <ul>
+        <li>Mango</li>
+        <li>Lime</li>
+        <li>Apple</li>
+    </ul>
+</body>
+</html>

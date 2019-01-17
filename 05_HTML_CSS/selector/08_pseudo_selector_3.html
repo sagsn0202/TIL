@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <style>
+    /* 가상 요소 셀렉터 pseudo element selector */
+        /* p의 첫 글자 */
+        p::first-letter { font-size: 3em }
+        /* p의 첫 줄 */
+        p::first-line { color: indianred}
+        /* h1 요소 앞에 */
+        h1::before {
+            content: "HTML5!";
+            color: lightblue;
+        }
+        /* h1 요소 뒤에 */
+        h1::after {
+            content: "!CSS3";
+            color: lightsalmon;
+        }
+
+        ::selection {
+            color: maroon;
+            background-color: palegoldenrod;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <h1>This is heading</h1>
+    <!-- Lorem ipsum -->
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+</body>
+</html>

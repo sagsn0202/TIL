@@ -390,3 +390,82 @@ pivoted = unpivoted.pivot(
     values='Total Sales').reset_index()
 ```
 
+## Multiple DataFrames
+
+### Inner Merge
+
+`new_df = pd.merge(orders, customers)`
+
+This produces the same DataFrame as if we had called `new_df = orders.merge(customers)`
+
+`big_df = orders.merge(customers).merge(products)`
+
+#### on Specific Columns
+
+Because the `id` columns would mean something different in each table, we could address this problem is to use `.rename`
+
+`pd.merge(orders, customers.rename(columns={'id': 'customer_id'}))`
+
+##### Other Option
+
+`pd.merge(orders,  customers,  left_on='customer_id', right_on='id')`
+
+If we use this syntax, we'll end up with two columns called `id`, one from the first table and one from the second. 
+
+| id_x | customer_id | product_id | quantity | timestamp           | id_y | customer_name | address      | phone_number |
+| ---- | ----------- | ---------- | -------- | ------------------- | ---- | ------------- | ------------ | ------------ |
+| 1    | 2           | 3          | 1        | 2017-01-01 00:00:00 | 2    | Jane Doe      | 456 Park Ave | 949-867-5309 |
+| 2    | 2           | 2          | 3        | 2017-01-01 00:00:00 | 2    | Jane Doe      | 456 Park Ave | 949-867-5309 |
+| 3    | 3           | 1          | 1        | 2017-01-01 00:00:00 | 3    | Joe Schmo     | 789 Broadway | 112-358-1321 |
+| 4    | 3           | 2          | 2        | 2016-02-01 00:00:00 | 3    | Joe Schmo     | 789 Broadway | 112-358-1321 |
+| 5    | 3           | 3          | 3        | 2017-02-01 00:00:00 | 3    | Joe Schmo     | 789 Broadway | 112-358-1321 |
+| 6    | 1           | 4          | 2        | 2017-03-01 00:00:00 | 1    | John Smith    | 123 Main St. | 212-123-4567 |
+| 7    | 1           | 1          | 1        | 2017-02-02 00:00:00 | 1    | John Smith    | 123 Main St. | 212-123-4567 |
+| 8    | 1           | 4          | 1        | 2017-02-02 00:00:00 | 1    | John Smith    | 123 Main St. | 212-123-4567 |
+
+`pd.merge(orders, customers, left_on='customer_id', right_on='id', suffixes=['_order', '_customer'])`
+
+| id_order | customer_id | product_id | quantity | timestamp           | id_customer | customer_name | address      | phone_number |
+| -------- | ----------- | ---------- | -------- | ------------------- | ----------- | ------------- | ------------ | ------------ |
+| 1        | 2           | 3          | 1        | 2017-01-01 00:00:00 | 2           | Jane Doe      | 456 Park Ave | 949-867-5309 |
+| 2        | 2           | 2          | 3        | 2017-01-01 00:00:00 | 2           | Jane Doe      | 456 Park Ave | 949-867-5309 |
+| 3        | 3           | 1          | 1        | 2017-01-01 00:00:00 | 3           | Joe Schmo     | 789 Broadway | 112-358-1321 |
+| 4        | 3           | 2          | 2        | 2016-02-01 00:00:00 | 3           | Joe Schmo     | 789 Broadway | 112-358-1321 |
+| 5        | 3           | 3          | 3        | 2017-02-01 00:00:00 | 3           | Joe Schmo     | 789 Broadway | 112-358-1321 |
+| 6        | 1           | 4          | 2        | 2017-03-01 00:00:00 | 1           | John Smith    | 123 Main St. | 212-123-4567 |
+| 7        | 1           | 1          | 1        | 2017-02-02 00:00:00 | 1           | John Smith    | 123 Main St. | 212-123-4567 |
+| 8        | 1           | 4          | 1        | 2017-02-02 00:00:00 | 1           | John Smith    | 123 Main St. | 212-123-4567 |
+
+#### Mismatched Merges
+
+When we merge two DataFrames whose rows don't match perfectly, we lose the unmatched rows.
+
+### Outer Merge
+
+An *Outer Join* would include all rows from both tables, even if they don't match.  Any missing values are filled in with `None` or `nan` (which stands for "Not a Number").
+
+`pd.merge(company_a, company_b, how='outer')`
+
+### Left and Right Merge
+
+`pd.merge(company_a, company_b, how='left')`
+
+| name          | email                   | phone        |
+| ------------- | ----------------------- | ------------ |
+| Sally Sparrow | sally.sparrow@gmail.com | `None`       |
+| Peter Grant   | pgrant@yahoo.com        | 212-345-6789 |
+| Leslie May    | leslie_may@gmail.com    | 626-987-6543 |
+
+`pd.merge(company_a, company_b, how="right")`
+
+| name        | email                | phone        |
+| ----------- | -------------------- | ------------ |
+| Peter Grant | pgrant@yahoo.com     | 212-345-6789 |
+| Leslie May  | leslie_may@gmail.com | 626-987-6543 |
+| Aaron Burr  | `None`               | 303-456-7891 |
+
+### Concatenate
+
+`pd.concat([df1, df2, df2, ...])`
+
+This method only works if all of the columns are the same in all of the DataFrames.
