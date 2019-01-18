@@ -1,0 +1,11 @@
+환경변수
+bash
+$ export KOBIS_KEY=''
+$ export NAVER_CLIENT_ID=''
+$ export NAVER_CLIENT_SECRET=''
+
+python
+import os
+os.getenv('KOBIS_KEY')
+os.getenv('NAVER_CLIENT_ID')
+os.getenv('NAVER_CLIENT_SECRET')
