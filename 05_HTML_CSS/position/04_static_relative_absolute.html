@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            margin: 0;
+        }
+        .parent {
+            width: 150px;
+            height: 150px;
+            background: gray;
+            border: 1px solid black;
+            margin: 50px;
+            /* position: relative; */
+        }
+        .relative-box{
+            position: relative;
+            top: 10px;
+            left: 10px;
+            width: 150px;
+            height: 150px;
+            background: black;
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            line-height: 150px;
+        }
+        .absolute-box {
+            position: absolute;
+            height: 150px;
+            width: 150px;
+            top: 10px;
+            left: 10px;
+            background: darkgoldenrod;
+            color: deeppink;
+            font-weight: bold;
+            text-align: center;
+            line-height: 150px;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div class="parent">
+        <div class="absolute-box">
+            absolute box
+        </div>
+    </div>
+    <div class="parent">
+        <div class="relative-box">
+            relative box
+        </div>
+    </div>
+</body>
+</html>

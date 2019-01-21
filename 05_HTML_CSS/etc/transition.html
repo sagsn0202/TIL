@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        div.circle {
+            width: 100px;
+            height: 100px;
+            background: red;
+            transition: all 2s;
+        }
+
+        div.circle:hover {
+            border-radius: 50%;
+            background: blue;
+        }
+
+        div.status-bar {
+            width: 200px;
+            height: 50px;
+            background: darkgrey;
+            margin-bottom: 10px;
+            transition-property: width, background;
+            transition-duration: 1.2s, 0.8s;
+        }
+
+        div.status-bar:hover {
+            width: 500px;
+            background: black;
+        }
+
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="circle"></div>
+    <div class="status-bar"></div>
+</body>
+
+</html>

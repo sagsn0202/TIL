@@ -1,5 +1,6 @@
 # NumPy: Python
 
+- https://docs.scipy.org/doc/numpy/reference/
 - Efficiently working with many numbers at once
 - Generating random numbers
 - Performing many different numerical functions (i.e., calculating sin, cos, tan, mean, median, etc.)
