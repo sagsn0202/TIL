@@ -53,5 +53,66 @@ X.T = [
 ]
 ```
 
+## Sigmoid Function
 
+\sigma(WX + b)
 
+## Softmax Function
+
+```python
+import numpy as np
+
+def softmax(L):
+    expL = np.exp(L)
+    sumExpL = sum(expL)
+    result = []
+    for i in expL:
+        result.append(i*1.0/sumExpL)
+    return result
+    
+    # Note: The function np.divide can also be used here, as follows:
+    # def softmax(L):
+    #     expL = np.exp(L)
+    #     return np.divide (expL, expL.sum())
+```
+
+## (Log-loss)Error Function
+
+- The error function should be differentiable.
+- The error function should be continuous.
+
+## Maximizing Probabilities
+
+Product(Bad) -> Sum(Good). Use logarithm!
+
+## (Minimal)Cross-Entropy
+
+```python
+import numpy as np
+
+# Write a function that takes as input two lists Y, P,
+# and returns the float corresponding to their cross-entropy.
+def cross_entropy(Y, P):
+    Y = np.asfarray(Y)
+    P = np.asfarray(P)
+    return -np.sum(Y * np.log(P) + (1 - Y) * np.log(1 - P))
+```
+
+```python
+import numpy as np
+
+def cross_entropy(Y, P):
+    Y = np.float_(Y)
+    P = np.float_(P)
+    return -np.sum(Y * np.log(P) + (1 - Y) * np.log(1 - P))
+```
+
+A higher cross-entropy implies a lower probability for an event.
+
+### Logistic Regression
+
+- Take your data
+- Pick a random model
+- Calculate the error
+- Minimize the error, and obtain a better model
+- Enjoy!

@@ -369,7 +369,7 @@ ALTER TABLE celebs
 ADD COLUMN twitter_handle TEXT;
 
 ALTER TABLE table_name
-ADD COLUMN column DATA_TYPE;
+ADD COLUMN column_name DATA_TYPE;
 ```
 
 ```sql
@@ -562,3 +562,113 @@ SELECT , CASE WHEN THEN END AS
 - `ORDER BY` sorts the result.
 - `LIMIT` specifies the maximum number of rows that the query will return.
 - `CASE` creates different outputs.
+
+## Aggregate
+
+### Count
+
+how many rows are in a table 
+
+```sql
+SELECT COUNT(*)
+FROM table_name;
+```
+
+### Sum
+
+ add all values in a particular column 
+
+```sql
+SELECT SUM(downloads)
+FROM fake_apps;
+```
+
+### Max / Min
+
+the highest and lowest values in a column, respectively
+
+```sql
+SELECT MIN(downloads)
+FROM fake_apps;
+```
+
+### Average
+
+calculate the average value of a particular column
+
+```sql
+SELECT AVG(downloads)
+FROM fake_apps;
+```
+
+### Round
+
+`ROUND()` function takes two arguments inside the parenthesis:
+
+1. a column name
+2. an integer
+
+```sql
+SELECT name, ROUND(price, 0)
+FROM fake_apps;
+```
+
+```sql
+SELECT ROUND(AVG(price), 2)
+FROM fake_apps;
+```
+
+### Group by
+
+`GROUP BY` is a clause in SQL that is used with aggregate functions. It is used in collaboration with the `SELECT` statement to arrange identical data into *groups*.
+
+The `GROUP BY` statement comes after any `WHERE` statements, but before `ORDER BY` or `LIMIT`.
+
+```sql
+SELECT price, COUNT(*) 
+FROM fake_apps
+WHERE downloads > 20000
+GROUP BY price;
+```
+
+```sql
+SELECT year,
+   AVG(imdb_rating)
+FROM movies
+GROUP BY year
+ORDER BY year;
+```
+
+- `1` is the first column selected
+- `2` is the second column selected
+- `3` is the third column selected
+
+```sql
+SELECT category, price, AVG(downloads)
+FROM fake_apps
+GROUP BY 1, 2;
+```
+
+### Having
+
+we want to *filter groups*. This is where `HAVING` comes in.
+
+all types of `WHERE` clauses you learned about thus far can be used with `HAVING`.
+
+```sql
+SELECT year, genre, COUNT(name)
+FROM movies
+GROUP BY 1, 2
+HAVING COUNT(name) > 10;
+```
+
+### Summary
+
+- `COUNT()`: count the number of rows
+- `SUM()`: the sum of the values in a column
+- `MAX()`/`MIN()`: the largest/smallest value
+- `AVG()`: the average of the values in a column
+- `ROUND()`: round the values in the column
+
+- `GROUP BY` is a clause used with aggregate functions to combine data from one or more columns.
+- `HAVING` limit the results of a query based on an aggregate property.
