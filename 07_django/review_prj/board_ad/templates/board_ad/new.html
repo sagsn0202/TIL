@@ -1,9 +1,0 @@
-{% extends 'board/base.html' %}
-{% block body %}
-    <form action="/board/articles/create/" method="POST">
-    {% csrf_token %}
-        <input name="input_title" type="text">
-        <textarea name="input_content" cols="30" rows="10"></textarea>
-        <button type="submit">Create</button>
-    </form>
-{% endblock %}

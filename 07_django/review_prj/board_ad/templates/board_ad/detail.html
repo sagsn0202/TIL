@@ -1,17 +1,50 @@
-{% extends 'board/base.html' %}
+{% extends 'board_ad/base.html' %}
 
 {% block body %}
-    <h1>{{ article.title }}</h1>
-    <p>{{ article.content }}</p>
+    <h1>{{ posting.title }}</h1>
+    <p>{{ posting.content }}</p>
     <hr>
-    <a href="/board/articles/">
+    <a href="{% url 'board_ad:posting_list' %}">
         <button>List</button>
     </a>
-    <a href="/board/articles/{{ article.id }}/edit/">
+    <a href="{% url 'board_ad:update_posting' posting.id %}">
         <button>Edit</button>
     </a>
-    <form action="/board/articles/{{ article.id }}/delete/" method="POST">
+    <form action="{% url 'board_ad:delete_posting' posting.id %}" method="post">
     {% csrf_token %}
-        <button type="submit">Delete</button>
+        <button type="submit" onclick="return confirm('정말 지우시겠습니까?')">Delete</button>
     </form>
+
+    <hr>
+
+    <form action="{% url 'board_ad:create_comment' posting.id %}" method="post">
+    {% csrf_token %}
+        <label for="comment">Write your comment</label>
+        <input type="text" name="comment" id="comment">
+        <button type="submit">Comment</button>
+    </form>
+
+    {% if comments %}
+        <ul>
+            {% for comment in comments %}
+                <li>
+                    <p>{{ comment.content }}</p>
+                    <form action="{% url 'board_ad:delete_comment' posting.id comment.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Delete comment</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <hr>
+
+    <button id="reset_button">Wow!</button>
+    <script>
+        button = document.querySelector('#reset_button');
+        button.addEventListener('click', (e) => {
+            document.write('<h1>Haha</h1>');
+        });
+    </script>
 {% endblock %}

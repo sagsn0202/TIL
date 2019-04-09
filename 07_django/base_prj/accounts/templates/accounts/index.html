@@ -1,7 +1,7 @@
 <h2>
     {% if user.is_authenticated %}
-    Logged in <a href="url 'accounts:sign_out">Log out</a>
+    Logged in <a href="{% url 'accounts:sign_out' %}>Log out</a>
     {% else %}
-    
+    Not logged in <a href="{% url 'accounts:sign_in' %}>Log in</a>
     {% endif %}
 </h2>

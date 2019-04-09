@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Movie
 from .forms import MovieModelForm
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -10,6 +11,7 @@ def index(request):
     })
 
 
+@login_required(login_url='/accounts/sign_in/')
 def create(request):
     if request.method == 'POST':
         form = MovieModelForm(request.POST)
@@ -43,13 +45,13 @@ def create(request):
     return render(request, 'movie/create.html', {'form': form})
 
 
-def update(request, id):
-    movie = get_object_or_404(Movie, id=id)
+def update(request, movie_id):
+    movie = get_object_or_404(Movie, id=movie_id)
     if request.method == 'POST':
         form = MovieModelForm(request.POST, instance=movie)
         if form.is_valid():
             form.save()
-            return redirect('movie:detail', id)
+            return redirect('movie:detail', movie_id)
     else:
         form = MovieModelForm(instance=movie)
     return render(request, 'movie/update.html', {'form': form})

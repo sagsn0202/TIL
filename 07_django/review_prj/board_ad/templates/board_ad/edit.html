@@ -1,9 +1,0 @@
-{% extends 'board/base.html' %}
-{% block body %}
-    <form action="/board/articles/{{ article.id }}/update/" method="POST">
-    {% csrf_token %}
-        <input name="input_title" type="text" value="{{ article.title }}">
-        <textarea name="input_content" cols="30" rows="10">{{ article.content }}</textarea>
-        <button type="submit">Update</button>
-    </form>
-{% endblock %}

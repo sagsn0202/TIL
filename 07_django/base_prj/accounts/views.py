@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
 
@@ -26,6 +26,8 @@ def sign_in(request):
         form = AuthenticationForm(request, request.POST)
         if form.is_valid():
             login(request, form.get_user())
+            if request.GET.get('next'):
+                return redirect(request.GET.get('name'))
             return redirect('accounts:index')
     else:
         form = AuthenticationForm()

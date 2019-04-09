@@ -1,14 +1,16 @@
-{% extends 'board/base.html' %}
+{% extends 'board_ad/base.html' %}
 {% block body %}
-    <h1>Article List</h1>
-    <a href="/board/articles/new/">
-        <button>New Article</button>
+    <h1>Posting List</h1>
+    <a href="{% url 'board_ad:create_posting' %}">
+        <button>New Posting</button>
     </a>
-    <ul>
-    {% for article in articles %}
-        <li>
-            <a href="/board/articles/{{ article.id }}/">{{ article.title }}</a>
-        </li>
-    {% endfor %}
-    </ul>
+    {% if postings %}
+        <ul>
+        {% for posting in postings %}
+            <li>
+                <a href="{% url 'board_ad:posting_detail' posting.id %}">{{ posting.title }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}
