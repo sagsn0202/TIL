@@ -1,0 +1,11 @@
+<article class="card">
+    {% if post.image %}
+        <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.image }}">
+    {% else %}
+        <img src="https://picsum.photos/200/150" class="card-img-top" alt="random image">
+    {% endif %}
+    <div class="card-body">
+        <h5 class="card-title">Card Title</h5>
+        <p class="card-text">{{ post.content }}</p>
+    </div>
+</article>

@@ -1,0 +1,10 @@
+{% extends 'mton/base.html' %}
+{% block body %}
+    {% for enrollment in enrollments %}
+        <p> {{ enrollment }}</p>
+    {% endfor %}
+    <form action="{% url 'mton:search_lecture' %}">
+        <input name="student_id" type="number" min="1" value="1">
+        <button type="submit">조회</button>
+    </form>
+{% endblock %}
