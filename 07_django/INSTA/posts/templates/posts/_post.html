@@ -1,11 +1,27 @@
-<article class="card">
-    {% if post.image %}
-        <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.image }}">
+<div class="card my-3">
+    {% if post.image_set %}
+        <div id="post{{post.id}}" class="carousel slide carousel-fade" data-ride="carousel">
+            <div class="carousel-inner">
+                {% for image in post.image_set.all %}
+                    <div class="carousel-item {% if forloop.counter == 1 %} active {% endif %}">
+                        <img src="{{ image.file.url }}" class="d-block w-100" alt="{{ image.file }}">
+                    </div>
+                {% endfor %}
+            </div>
+            <a class="carousel-control-prev" href="#post{{ post.id }}" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#post{{ post.id }}" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
     {% else %}
-        <img src="https://picsum.photos/200/150" class="card-img-top" alt="random image">
+        <img src="https://picsum.photos/600" alt="random image" class="card-img-top" />
     {% endif %}
     <div class="card-body">
-        <h5 class="card-title">Card Title</h5>
         <p class="card-text">{{ post.content }}</p>
+        <a href="{% url 'posts:update_post' post.id %}" class="btn btn-warning">수정</a>
     </div>
-</article>
+</div>
