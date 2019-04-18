@@ -18,7 +18,7 @@ class Client(models.Model):
 
 class Hotel(models.Model):
     name = models.CharField(max_length=20)
-    clients = models.ManyToManyField(Client)
+    clients = models.ManyToManyField(Client, related_name='hotels')
 
     @classmethod
     def dummy(cls, n):

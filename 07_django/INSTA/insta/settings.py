@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'mton',
-    'oton',
+    # 'oton',
     # 'otoo',
     'posts',
     'accounts',
@@ -120,6 +120,7 @@ USE_L10N = True
 
 USE_TZ = False
 
+AUTH_USER_MODEL = 'auth.User'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
