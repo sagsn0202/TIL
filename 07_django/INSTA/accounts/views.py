@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
+from django.contrib import messages
+from posts.forms import CommentModelForm
 
 
 @require_http_methods(['GET', 'POST'])
@@ -37,4 +39,5 @@ def log_in(request):
 
 def log_out(request):
     logout(request)
+    messages.add_message(request, messages.SUCCESS, '안녕히세요.')
     return redirect('posts:post_list')

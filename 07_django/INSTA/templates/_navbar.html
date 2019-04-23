@@ -1,0 +1,31 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light px-5">
+    <a class="navbar-brand" href="#">
+        <i class="fab fa-instagram"></i> | Instagram
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'posts:create_post' %}">New</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">{{ user.username }}'s page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:log_out' %}">Logout</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:log_in' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'accounts:signup' %}">Signup</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

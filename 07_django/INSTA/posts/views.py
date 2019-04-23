@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
 from django.contrib.auth.decorators import login_required
-from .models import Post, Image
+from django.contrib import messages
+from .models import Post, Image, HashTag
 from .forms import PostModelForm, ImageModelForm, CommentModelForm
 # from IPython import embed
 
@@ -15,6 +16,18 @@ def create_post(request):
             post = post_form.save(commit=False)
             post.user = request.user
             post.save()
+
+            # create hashtag => <input name='tags' /> #hi #ssafy #20층
+            content = post_form.cleaned_data.get('content')
+            words = content.split(' ')
+            for word in words:
+                if word[0] == '#':
+                    word = word[1:]
+                    tag = HashTag.objects.get_or_create(content=word)
+                    post.tags.add(tag[0])
+                    # if tag[1]:
+                    #     messages.add_message(request, messages.SUCCESS, f'{tag[0]}를(을) 처음 추가했습니다.')
+
             for image in request.FILES.getlist('file'):
                 # embed()
                 request.FILES['file'] = image
@@ -70,6 +83,15 @@ def update_post(request, post_id):
             post_form = PostModelForm(request.POST, instance=post)
             if post_form.is_valid():
                 post_form.save()
+                # update hashtag
+                post.tags.clear()
+                content = post_form.cleaned_data.get('content')
+                words = content.split(' ')
+                for word in words:
+                    if word[0] == '#':
+                        word = word[1:]
+                        tag = HashTag.objects.get_or_create(content=word)
+                        post.tags.add(tag[0])
                 return redirect('posts:post_list')
         else:
             post_form = PostModelForm(instance=post)
@@ -93,3 +115,15 @@ def toggle_like(request, post_id):
         post.like_users.add(user)
 
     return redirect('posts:post_list')
+
+
+@require_GET
+def tag_post_list(request, tag_name):
+    tag = get_object_or_404(HashTag, content=tag_name)
+    posts = tag.posts.all()
+    comment_form = CommentModelForm()
+    return render(request, 'posts/list.html', {
+        'posts': posts,
+        'comment_form': comment_form,
+        'h1': f'#{ tag } 를(을) 포함한 Posts 입니다.',
+    })

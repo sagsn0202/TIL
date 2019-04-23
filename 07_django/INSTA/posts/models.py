@@ -12,10 +12,18 @@ if ENV == 'DEVELOPMENT':
     faker = Faker()
 
 
+class HashTag(models.Model):
+    content = models.CharField(max_length=20, unique=True)
+
+    def __str__(self):
+        return self.content
+
+
 class Post(TimeStampedModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_posts')
     content = models.CharField(max_length=210)
+    tags = models.ManyToManyField(HashTag, blank=True, related_name='posts')
 
     @classmethod
     def dummy(cls, n):
