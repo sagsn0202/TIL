@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+    {% for post in posts %}
+        <a href="{% url 'posts:post_detail' post.pk %}"><p>{{ post.title }}</p></a>
+    {% endfor %}
+    <a href="{% url 'posts:create_post' %}">
+        {% buttons %}
+            <button class="btn btn-success">작성</button>
+        {% endbuttons %}
+    </a>
+{% endblock %}

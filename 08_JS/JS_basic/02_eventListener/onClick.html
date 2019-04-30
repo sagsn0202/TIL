@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul id="my">
+</ul>
+<button id="this-button">
+    Click me
+</button>
+<script>
+    const button = document.querySelector('#this-button');
+    button.addEventListener('click', e => {
+        const area = document.querySelector('#my');
+        area.innerHTML += '<li>Hi!</li>';
+    });
+</script>
+</body>
+</html>

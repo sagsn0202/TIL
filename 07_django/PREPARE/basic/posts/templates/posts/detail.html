@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block body %}
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.created }} / {{ post.modified }}</p>
+    <h2>{{ post.content }}</h2>
+    <p>작성자: {{ post.user }}</p>
+    <a href="{% url 'posts:posts_list' %}">
+        {% buttons %}
+            <button class="btn btn-primary">목록</button>
+        {% endbuttons %}
+    </a>
+    {% if post.user == user %}
+        <a href="{% url 'posts:update_post' post.pk %}">
+            {% buttons %}
+                <button class="btn btn-warning">수정</button>
+            {% endbuttons %}
+        </a>
+        <form action="{% url 'posts:delete_post' post.pk %}" method="post">
+            {% csrf_token %}
+            {% buttons %}
+                <button type="submit" class="btn btn-danger">삭제</button>
+            {% endbuttons %}
+        </form>
+    {% else %}
+        {% if user.is_authenticated %}
+            <form action="{% url 'posts:toggle_like' post.id %}" method="post">
+                {% csrf_token %}
+                {% if user not in post.like_users.all %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-info">좋아요</button>
+                    {% endbuttons %}
+                {% else %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-dark">좋아요 취소</button>
+                    {% endbuttons %}
+                {% endif %}
+            </form>
+        {% endif %}
+    {% endif %}
+{% endblock %}
