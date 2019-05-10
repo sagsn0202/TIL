@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>caesarCiper</title>
+</head>
+<body>
+<div>
+    <label for="user-input">origin</label>
+    <input autofocus type="text" id="user-input">
+</div>
+
+<div>
+    <label for="user-n">n</label>
+    <input type="text" id="user-n">
+</div>
+
+<h1 id="user-output">
+
+</h1>
+
+<script>
+    const inputArea = document.querySelector('#user-input');
+    const resultArea = document.querySelector('#user-output');
+    const inputNumber = document.querySelector('#user-n');
+    inputArea.addEventListener('input', evt => {
+        resultArea.innerHTML = inputArea.value;
+    });
+    inputNumber.addEventListener('input', evt => {
+        // const convert = [];
+        // for (const char of inputArea.value) {
+        //     convert.push(char.charCodeAt() + inputNumber.value * 1);
+        // }
+        // resultArea.innerHTML = String.fromCharCode.apply(null, convert);
+        const n = Number(inputNumber.value);
+        const charArray = inputArea.value.split('');
+        resultArea.innerHTML = charArray.map(char => String.fromCharCode(char.charCodeAt() + n)).join('');
+    });
+</script>
+</body>
+</html>

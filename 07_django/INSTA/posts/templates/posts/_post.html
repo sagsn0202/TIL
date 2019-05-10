@@ -23,13 +23,18 @@
     {% endif %}
     <div class="card-body">
         <div class="row">
-            <form action="{% url 'posts:toggle_like' post.id %}" method="post">
-                {% csrf_token %}
-                {% buttons %}
-                    <button class="btn btn-primary ml-1">Like!</button>
-                {% endbuttons %}
-            </form>
-            <p class="col-auto">: {{ post.like_users.count }}명</p>
+{#            <form action="{% url 'posts:toggle_like' post.id %}" method="post">#}
+{#                {% csrf_token %}#}
+{#                {% buttons %}#}
+{#                    <button class="btn btn-primary ml-1">Like!</button>#}
+{#                {% endbuttons %}#}
+{#            </form>#}
+            {% if user in post.like_users.all %}
+                <i class="activate like-button fas fa-thumbs-up fa-2x" data-id="{{ post.id }}"></i>
+            {% else %}
+                <i class="like-button fas fa-thumbs-up fa-2x" data-id="{{ post.id }}"></i>
+            {% endif %}
+            <p class="col-auto">: <span id="like-count-{{ post.id }}">{{ post.like_users.count }}</span>명</p>
             <p class="col-auto ml-auto">작성자: {{ post.user.username }}</p>
         </div>
         <hr>

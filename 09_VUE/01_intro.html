@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    {{ message }}
+    {{ greeting() }}
+    <input type="text" v-on:input="changeTitle($event, '최고')">
+    <p>{{ message }}</p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app', // Vue instance <=> HTML elem Binding
+        data: { // 이 script 가 실행되는 최초의 data initializing
+            message: 'Hi',
+        },
+        methods: { // 이 script 가 실행되는 최초의 function initializing
+            greeting () {
+                return this.message;
+            },
+            changeTitle (evt, post) {
+                this.message = evt.target.value;
+                this.message += post;
+            },
+        },
+    });
+</script>
+</body>
+</html>

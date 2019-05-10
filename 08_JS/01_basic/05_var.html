@@ -14,8 +14,14 @@
     <script>
         // ES5
         var number = 1;
+        for (var i = 0; i < 10; i ++) {}
+        console.log(i); // 가능
         // ES 6
         let number = 1;
+        for (let j = 0; j < 10; j ++) {
+            console.log(j);
+        }
+        console.log(j); // 불가능
     </script>
 </body>
 </html>

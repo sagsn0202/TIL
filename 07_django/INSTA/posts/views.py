@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse, HttpResponseBadRequest
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -105,16 +106,21 @@ def update_post(request, post_id):
 @login_required()
 @require_POST
 def toggle_like(request, post_id):
-    user = request.user
-    post = get_object_or_404(Post, pk=post_id)
-
-    # if post.like_users.filter(pk=user.id).exist():
-    if user in post.like_users.all():
-        post.like_users.remove(user)
+    if request.is_ajax():
+        user = request.user
+        post = get_object_or_404(Post, pk=post_id)
+        is_active = True
+        # if post.like_users.filter(pk=user.id).exist():
+        if user in post.like_users.all():
+            post.like_users.remove(user)
+            is_active = False
+        else:
+            post.like_users.add(user)
+        return JsonResponse({'likeCount': post.like_users.count(),
+                             'is_active': is_active,
+                             })
     else:
-        post.like_users.add(user)
-
-    return redirect('posts:post_list')
+        return HttpResponseBadRequest()
 
 
 @require_GET

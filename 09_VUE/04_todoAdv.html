@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .completed {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <select v-model="status">
+        <option value="all" selected>모두 보기</option>
+        <option value="active">안 끝남</option>
+        <option value="completed">끝남</option>
+    </select>
+    <input type="text" v-model="newTodo" @keyup.enter="addTodo()">
+    <button @click="addTodo()">+</button>
+    <button v-on:click="clearCompleted">Clear Completed</button>
+
+    <ol v-if="todos.length">
+<!--        <li v-for="todo in todos" :class="todo.completed ? 'completed' : '' ">-->
+        <li v-for="todo in groupTodosByStatus" :class="{completed: todo.completed}" :key="todo.id">
+            <input type="checkbox" v-model="todo.completed">
+            <span>{{ todo.content }}</span>
+        </li>
+    </ol>
+</div>
+<script src="./vue.js"></script>
+<script>
+    const todosApp = {
+        storageKey: 'my-todos',
+        fetch () {
+            return JSON.parse(localStorage.getItem(this.storageKey)) || [];
+        },
+        save (todos) {
+            localStorage.setItem(this.storageKey, JSON.stringify(todos));
+        },
+    };
+    const app = new Vue({
+        el: '#app',
+        data: {
+            todos: todosApp.fetch(),
+            newTodo: '',
+            status: 'all',
+        },
+        methods: {
+            check (todo) {
+                todo.completed = !todo.completed;
+            },
+            addTodo () {
+                if (this.newTodo) {
+                    this.todos.push({
+                        id: Date.now(),
+                        content: this.newTodo,
+                        completed: false,
+                    });
+                    this.newTodo = '';
+                }
+            },
+            clearCompleted () {
+                this.todos = this.todos.filter(todo => !todo.completed);
+            },
+        },
+        computed: {
+            groupTodosByStatus () {
+                if (this.status === 'active') {
+                    return this.todos.filter(todo => !todo.completed);
+                } else if (this.status === 'completed') {
+                    return this.todos.filter(todo => todo.completed);
+                } else {
+                    return this.todos;
+                }
+            },
+        },
+        watch: {
+            todos: {
+                deep: true,
+                handler: function (todos) {
+                    todosApp.save(todos)
+                },
+            },
+        },
+    })
+</script>
+</body>
+</html>

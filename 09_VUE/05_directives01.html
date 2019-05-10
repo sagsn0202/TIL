@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+    <h2></h2>
+
+    {{ message }}
+    {{ status ? 'Good' : 'Bad' }}
+    {{ message | capitalize }}
+    <template v-if="status">
+        <h1>Good!</h1>
+        <p>Good to see you again.</p>
+<!--       tmpelate v-if 만-->
+    </template>
+    <p v-if="type === 'A'">A</p>
+    <p v-else-if="type === 'B'">B</p>
+    <p v-else-if="type === 'C'">C</p>
+    <p v-else>?</p>
+</div>
+<script src="./vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            message: 'hello',
+            type: 3,
+            status: true,
+            eng: false,
+            kor: false,
+        },
+        methods: {},
+        filters: {
+            capitalize (value) {
+                if (!value) return '';
+                value = value.toString();
+                return value.charAt(0).toUpperCase() + value.slice(1);
+            }
+        },
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .completed {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <select v-model="status">
+        <option value="all" selected>모두 보기</option>
+        <option value="active">안 끝남</option>
+        <option value="completed">끝남</option>
+    </select>
+    <input type="text" v-model="newTodo" @keyup.enter="addTodo()">
+    <button @click="addTodo()">+</button>
+    <button v-on:click="clearCompleted">Clear Completed</button>
+
+    <ol v-if="todos.length">
+<!--        <li v-for="todo in todos" :class="todo.completed ? 'completed' : '' ">-->
+        <li v-for="todo in groupTodosByStatus" :class="{completed: todo.completed}" :key="todo.id">
+            <input type="checkbox" v-model="todo.completed" @change="updateTodo(todo)">
+            <span>{{ todo.content }}</span>
+        </li>
+    </ol>
+</div>
+<script src="./vue.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+<script src="https://unpkg.com/vuefire/dist/vuefire.js"></script>
+<script>
+    const config = {
+        apiKey: "AIzaSyAV0Sq5HR8eIipkTWXD6ER7IKvjYL_3h4c",
+        databaseURL: "https://todo-vue-53bb1.firebaseio.com/",
+        projectId: "todo-vue-53bb1",
+    };
+    firebase.initializeApp(config);
+
+    const database = firebase.database();
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            newTodo: '',
+            status: 'all',
+        },
+        firebase: {
+            todos: database.ref('todos'),
+        },
+        methods: {
+            check (todo) {
+                todo.completed = !todo.completed;
+            },
+            addTodo () {
+                if (this.newTodo) {
+                    this.$firebaseRefs.todos.push({
+                        id: Date.now(),
+                        content: this.newTodo,
+                        completed: false,
+                    });
+                    this.newTodo = '';
+                }
+            },
+            clearCompleted () {
+                const completedTodos = this.todos.filter(todo => todo.completed);
+                completedTodos.forEach(todo => this.$firebaseRefs.todos.child(todo['.key']).remove());
+            },
+            updateTodo (todo) {
+                const newTodo = { ...todo };
+                delete newTodo['.key'];
+                this.$firebaseRefs.todos.child(todo['.key']).set(newTodo);
+            },
+        },
+        computed: {
+            groupTodosByStatus () {
+                if (this.status === 'active') {
+                    return this.todos.filter(todo => !todo.completed);
+                } else if (this.status === 'completed') {
+                    return this.todos.filter(todo => todo.completed);
+                } else {
+                    return this.todos;
+                }
+            },
+        },
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+<a href="https://kr.vuejs.org/v2/guide/computed.html">VuesJS 공식문서</a>
+<div id="app">
+    <!--
+        1. {{ let i = 1 }} 변수 선언 x
+        2. {{ message.split('').reverse().join('') }} Bad Way
+        3. {{ if (condition) {do Something} }} => {{ condition ? a : b }}
+    -->
+    {{ reverseMessage() }}
+    {{ reversedMessage }}
+    <p>{{ dateMethod() }}</p>
+    <p>{{ dateComputed }}</p>
+</div>
+<script src="./vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: '안녕하세요.',
+            d: Date.now()
+        },
+        methods: {
+            reverseMessage() {
+                return this.message.split('').reverse().join('');
+            },
+            dateMethod () {
+                return Date.now();
+            },
+        },
+        computed: { // computed 안에는 실행이 되어 있고, 이름으로 값을 가지고 옴.
+            reversedMessage () {
+                return this.message.split('').reverse().join('');
+            },
+            dateComputed () {
+                return Date.now()
+            },
+        },
+    })
+</script>
+</body>
+</html>

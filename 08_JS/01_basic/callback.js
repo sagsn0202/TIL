@@ -1,3 +1,28 @@
+function myFunc () {
+    return n => n + 1
+}
+
+const num_101 = myFunc()(100);
+console.log(num_101);
+
+
+function func1(cb1, cb2) {
+    console.log(1);
+    cb1(cb2(cb1));
+}
+
+function func2(callback) {
+    console.log(2);
+}
+
+function  func3(callback) {
+    console.log(3);
+}
+
+func1(func2, func3);
+// 1
+// fucn2(func3(func2))
+
 const numbersEachAdd = numbers => {
     let acc = 0;
     for (const number of numbers) {

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="app1">
+    <p>{{ message }}</p>
+    <button v-on:click="reverseMessage">Reverse</button>
+    <p>{{ count }}</p>
+    <button v-on:click="plus">Up</button>
+    <button v-on:click="minus">Down</button>
+</div>
+<div id="app2">
+    <ol>
+        <li v-for="todo in todos">
+            {{ todo.content }}
+        </li>
+    </ol>
+</div>
+<div id="app3">
+    <span v-bind:data-info="message">
+
+    </span>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    const app1 = new Vue({
+        // mount
+        el: '#app1',
+        // app init state - MUST object
+        data: {
+            message: 'Hello Vue JS!',
+            count: 0,
+        },
+        methods: {
+            reverseMessage () {
+                this.message = this.message.split('').reverse().join('')
+            },
+            plus () {
+                this.count++;
+            },
+            minus () {
+                this.count--;
+            },
+        },
+    });
+    // app.plus();
+    // console.log(app.count);
+    // console.log(app.$data.count);
+    const app2 = new Vue({
+        el: '#app2',
+        data: {
+            todos: [
+                { content: 'JS 배우기' },
+                { content: 'Vue 배우기' },
+                { content: '짱짱한 거 만들기' },
+            ],
+        },
+    })
+</script>
+</body>
+</html>
